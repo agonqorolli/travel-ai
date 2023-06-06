@@ -23,7 +23,7 @@ export default function CollapsableCheckbox({ text, description }) {
         </Checkbox>
 
         <IconButton
-          aria-label="Toggle more info"
+          aria-label={text}
           size="sm"
           variant="ghost"
           onClick={onToggle}
