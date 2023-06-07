@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   CheckboxGroup,
@@ -12,40 +12,27 @@ import CollapsableCheckbox from "./CollapsableCheckbox";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export default function Activities({ goTo }) {
-  async function postJSON(data) {
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  async function handleGenerateTravelPlan() {
+    setIsGenerating(true);
     try {
       const response = await fetch(
-        "https://d6sa2alo0j.execute-api.us-east-1.amazonaws.com/default/testRequest",
+        "https://6ypadb4sz6.execute-api.eu-central-1.amazonaws.com/default/queryOpenAI",
         {
           method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-type": "application/json",
-            // "Access-Control-Allow-Origin": "*",
-            // "Access-Control-Allow-Methods": "POST",
-          },
-          body: JSON.stringify(data),
+          // body: JSON.stringify({ prompt: "Generate a two day travel plan in Pristina with a budget of 1000 euro" }),
+          body: JSON.stringify({ prompt: "Say this is a test" }),
         }
       );
 
-      // const result = await response.json();
-      console.log("Success:", response);
+      const result = await response.json();
+      goTo(3);
+      console.log("Success:", result);
     } catch (error) {
       console.error("Error:", error);
     }
-  }
-
-  function handleGenerateTravelPlan() {
-    return;
-    postJSON({
-      prompt: "Tell me a joke about dogs",
-    })
-    .then((res) => {
-      console.log("res", res);
-    })
-    .catch((er) => {
-      console.log("er", er);
-    });
+    setIsGenerating(false);
   }
 
   return (
@@ -110,9 +97,10 @@ export default function Activities({ goTo }) {
           size="lg"
           colorScheme="purple"
           shadow="md"
+          isLoading={isGenerating}
+          isDisabled={isGenerating}
           onClick={() => {
-            // goTo(3);
-            handleGenerateTravelPlan()
+            handleGenerateTravelPlan();
           }}
           rightIcon={<Icon as={FaArrowRight} />}
         >
@@ -125,6 +113,7 @@ export default function Activities({ goTo }) {
           colorScheme="purple"
           variant="ghost"
           shadow="md"
+          isDisabled={isGenerating}
           leftIcon={<Icon as={FaArrowLeft} />}
           onClick={() => {
             goTo(1);
