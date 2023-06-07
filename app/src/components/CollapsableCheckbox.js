@@ -38,7 +38,7 @@ export default function CollapsableCheckbox({ text, description }) {
       </HStack>
 
       <Collapse in={isOpen}>
-        <Box px={4} py={2} my={2} color="white" bg="purple.500" rounded="md">
+        <Box px={4} py={2} my={2} color="purple.500" rounded="md">
           <Text fontSize="sm">{description}</Text>
         </Box>
       </Collapse>
