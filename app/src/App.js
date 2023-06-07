@@ -1,17 +1,13 @@
-import {
-  Container,
-  Button,
-  Select,
-  Stack,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  InputRightElement,
-  Heading,
-} from "@chakra-ui/react";
-import { CalendarIcon, CheckIcon } from "@chakra-ui/icons";
+import React, { useState } from "react";
+import { Box, Container, Flex, Progress } from "@chakra-ui/react";
+import Billboard from "./components/Billboard";
+import Home from "./components/Home";
+import Activities from "./components/Activities";
+import TravelPlan from "./components/TravelPlan";
 
 function App() {
+  const [screen, setScreen] = useState(1);
+
   async function postJSON(data) {
     try {
       const response = await fetch(
@@ -48,52 +44,34 @@ function App() {
   }
 
   return (
-    <Container my={8}>
-      <Heading>Travel Planner</Heading>
+    <Flex flexDirection="row" justifyContent="space-between">
+      <Box id="billboard-box" height="100vh" minWidth="40vw">
+        <Billboard />
+      </Box>
 
-      <Stack mt={8}>
-        <Select placeholder="Select Country">
-          <option value="SP">Spain</option>
-          <option value="IT">Italy</option>
-          <option value="BR">Brazil</option>
-        </Select>
-
-        <Select placeholder="Select City">
-          <option value="B">Barcelona</option>
-          <option value="M">Milan</option>
-          <option value="R">Rio</option>
-        </Select>
-
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            color="gray.300"
-            fontSize="1.2em"
-            children="$"
-          />
-          <Input type="number" placeholder="Enter budget" />
-          <InputRightElement>
-            <CheckIcon color="green.500" />
-          </InputRightElement>
-        </InputGroup>
-
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            color="gray.300"
-            fontSize="1.2em"
-          >
-            <CalendarIcon color="gray.300" />
-          </InputLeftElement>
-          <Input type="number" placeholder="Enter days" />
-          <InputRightElement>
-            <CheckIcon color="green.500" />
-          </InputRightElement>
-        </InputGroup>
-
-        <Button onClick={handleGenerateTravelPlan}>Generate travel plan</Button>
-      </Stack>
-    </Container>
+      <Box position="relative" height="100vh" minWidth="60vw" overflowY="auto">
+        <Progress
+          position="fixed"
+          top={0}
+          left="40vw"
+          right={0}
+          zIndex={9}
+          size="xs"
+          colorScheme="purple"
+          backgroundColor="purple.100"
+          value={1 + screen * 33}
+        />
+        <Container my={20}>
+          {screen === 1 ? (
+            <Home goTo={setScreen} />
+          ) : screen === 2 ? (
+            <Activities goTo={setScreen} />
+          ) : (
+            <TravelPlan />
+          )}
+        </Container>
+      </Box>
+    </Flex>
   );
 }
 
