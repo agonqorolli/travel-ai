@@ -8,41 +8,6 @@ import TravelPlan from "./components/TravelPlan";
 function App() {
   const [screen, setScreen] = useState(1);
 
-  async function postJSON(data) {
-    try {
-      const response = await fetch(
-        "https://d6sa2alo0j.execute-api.us-east-1.amazonaws.com/default/testRequest",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-type": "application/json",
-            // "Access-Control-Allow-Origin": "*",
-            // "Access-Control-Allow-Methods": "POST",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-
-      // const result = await response.json();
-      console.log("Success:", response);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  function handleGenerateTravelPlan() {
-    postJSON({
-      prompt: "Tell me a joke about dogs",
-    })
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((er) => {
-        console.log("er", er);
-      });
-  }
-
   return (
     <Flex flexDirection="row" justifyContent="space-between">
       <Box id="billboard-box" height="100vh" minWidth="40vw">

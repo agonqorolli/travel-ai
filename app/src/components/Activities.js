@@ -12,6 +12,42 @@ import CollapsableCheckbox from "./CollapsableCheckbox";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export default function Activities({ goTo }) {
+  async function postJSON(data) {
+    try {
+      const response = await fetch(
+        "https://d6sa2alo0j.execute-api.us-east-1.amazonaws.com/default/testRequest",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-type": "application/json",
+            // "Access-Control-Allow-Origin": "*",
+            // "Access-Control-Allow-Methods": "POST",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      // const result = await response.json();
+      console.log("Success:", response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  function handleGenerateTravelPlan() {
+    return;
+    postJSON({
+      prompt: "Tell me a joke about dogs",
+    })
+    .then((res) => {
+      console.log("res", res);
+    })
+    .catch((er) => {
+      console.log("er", er);
+    });
+  }
+
   return (
     <Stack spacing={10}>
       <Heading textAlign="center">Optional Activities</Heading>
@@ -75,7 +111,8 @@ export default function Activities({ goTo }) {
           colorScheme="purple"
           shadow="md"
           onClick={() => {
-            goTo(3);
+            // goTo(3);
+            handleGenerateTravelPlan()
           }}
           rightIcon={<Icon as={FaArrowRight} />}
         >
