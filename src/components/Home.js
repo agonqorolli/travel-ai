@@ -31,9 +31,10 @@ export default function Home() {
 
   return (
     <Stack spacing={10}>
-      <Heading textAlign="center">Travel GPT</Heading>
+      <Heading textAlign="center">TravelGPT</Heading>
 
       <Text>
+        {/*Take advantage of our advanced prompts to ChatGPT*/}
         Travel planning ignites unforgettable adventures, unlocking hidden gems
         and optimizing every moment. From snagging the best deals to crafting
         immersive itineraries, it's the compass that guides us through thrilling

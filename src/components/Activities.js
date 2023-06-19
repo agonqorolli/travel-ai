@@ -27,9 +27,9 @@ export default function Activities() {
   async function handleGenerateTravelPlan() {
     setIsGenerating(true);
     try {
-      const prompt = `Generate a ${daysInput}-day travel plan in ${cityInput} with a budget of ${budgetInput} euro`;
-      const promptSuffix = activitiesInput
-        ? `and considering my hobbies ${activitiesInput
+      const prompt = `Generate a ${daysInput}-day travel plan in ${cityInput} with a budget of ${budgetInput} euro. Display exact price for each activity of the plan and total sum in the end.`;
+      const promptSuffix = activitiesInput.length
+        ? `Please also consider my hobbies ${activitiesInput
             .join(", ")
             .toLowerCase()}`
         : "";
@@ -45,8 +45,8 @@ export default function Activities() {
 
       const result = await response.json();
 
-      console.log("Prompt:", `${prompt} ${promptSuffix}`);
-      console.log("Result:", result);
+      // console.log("Prompt:", `${prompt} ${promptSuffix}`);
+      // console.log("Result:", result);
 
       setTravelPlan(result.choices[0].text);
       setStep(3);
