@@ -22,16 +22,11 @@ function App() {
         <Billboard />
       </Box>
 
-      <Box
-        position="relative"
-        height={{ base: "80vh", sm: "100vh" }}
-        minWidth="60vw"
-        overflowY="auto"
-      >
+      <Box position="relative">
         <Progress
-          position="fixed"
-          top={{ base: "20vh", sm: 0 }}
-          left={{ base: 0, sm: "40vw" }}
+          position="absolute"
+          top={0}
+          left={0}
           right={0}
           zIndex={9}
           size="xs"
@@ -40,9 +35,21 @@ function App() {
           value={1 + step * 33}
         />
 
-        <Container my={{ base: 10, sm: 20 }}>
-          {step === 1 ? <Home /> : step === 2 ? <Activities /> : <TravelPlan />}
-        </Container>
+        <Box
+          height={{ base: "80vh", sm: "100vh" }}
+          minWidth="60vw"
+          overflowY="auto"
+        >
+          <Container my={{ base: 10, sm: 20 }} px={6}>
+            {step === 1 ? (
+              <Home />
+            ) : step === 2 ? (
+              <Activities />
+            ) : (
+              <TravelPlan />
+            )}
+          </Container>
+        </Box>
       </Box>
     </Flex>
   );
