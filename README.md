@@ -1,2 +1,2 @@
-# travel-ai
+# TravelGPT
 Travel planner using OpenAI
