@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <Stack spacing={10}>
-      <Heading textAlign="center">TravelGPT</Heading>
+      <Heading textAlign="center">Travel GPT</Heading>
 
       <Text>
         Travel planning ignites unforgettable adventures, unlocking hidden gems
