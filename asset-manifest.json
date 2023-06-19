@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/agonqorolli/travel-ai/static/css/main.5e6f2613.css",
-    "main.js": "/agonqorolli/travel-ai/static/js/main.c1e5dc9e.js",
-    "index.html": "/agonqorolli/travel-ai/index.html",
-    "main.5e6f2613.css.map": "/agonqorolli/travel-ai/static/css/main.5e6f2613.css.map",
-    "main.c1e5dc9e.js.map": "/agonqorolli/travel-ai/static/js/main.c1e5dc9e.js.map"
+    "main.css": "/travel-ai/static/css/main.5e6f2613.css",
+    "main.js": "/travel-ai/static/js/main.c1e5dc9e.js",
+    "index.html": "/travel-ai/index.html",
+    "main.5e6f2613.css.map": "/travel-ai/static/css/main.5e6f2613.css.map",
+    "main.c1e5dc9e.js.map": "/travel-ai/static/js/main.c1e5dc9e.js.map"
   },
   "entrypoints": [
     "static/css/main.5e6f2613.css",
