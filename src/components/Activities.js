@@ -5,7 +5,6 @@ import {
   Heading,
   Icon,
   Stack,
-  HStack,
   VStack,
 } from "@chakra-ui/react";
 import CollapsableCheckbox from "./CollapsableCheckbox";
@@ -67,7 +66,10 @@ export default function Activities() {
           value={activitiesInput}
           onChange={setActivitiesInput}
         >
-          <HStack justifyContent="space-between" alignItems="start" spacing={6}>
+          <Stack
+            direction={{ base: "column", sm: "row" }}
+            spacing={{ base: 4, sm: 6 }}
+          >
             <VStack flex={1} spacing={4}>
               <CollapsableCheckbox
                 text="Sightseeing"
@@ -112,7 +114,7 @@ export default function Activities() {
                 description="Engage in activities that allow you to immerse yourself in the daily life of locals, such as taking a cooking class, participating in a traditional dance workshop, or joining a community service project. Connect with the people and their way of life."
               />
             </VStack>
-          </HStack>
+          </Stack>
         </CheckboxGroup>
       </Stack>
 
