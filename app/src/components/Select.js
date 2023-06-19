@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Icon,
@@ -14,15 +14,37 @@ export default function Select({
   placeholder,
   value,
   onChange,
-  results,
   onSelect,
+  options,
 }) {
+  const [results, setResults] = useState([]);
+
+  function handleOnChange(event) {
+    const newValue = event.target.value;
+
+    if (newValue.length >= 3) {
+      const newResults = options.filter((option) => {
+        return option.toLowerCase().startsWith(value.toLowerCase());
+      });
+      setResults(newResults);
+    } else {
+      setResults([]);
+    }
+
+    onChange(event);
+  }
+
+  function handleOnSelect(newValue) {
+    setResults([]);
+    onSelect(newValue);
+  }
+
   return (
     <Box position="relative">
       <InputGroup shadow="md" rounded="md">
         <Input
           value={value}
-          onChange={onChange}
+          onChange={handleOnChange}
           focusBorderColor="purple.500"
           borderColor="transparent"
           _hover={{ borderColor: "none" }}
@@ -54,7 +76,7 @@ export default function Select({
                   size="sm"
                   fontWeight="normal"
                   onClick={() => {
-                    onSelect(result);
+                    handleOnSelect(result);
                   }}
                 >
                   {result}

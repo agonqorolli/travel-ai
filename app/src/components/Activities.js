@@ -10,25 +10,43 @@ import {
 } from "@chakra-ui/react";
 import CollapsableCheckbox from "./CollapsableCheckbox";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useApp } from "../utils/useApp";
 
-export default function Activities({ goTo }) {
+export default function Activities() {
+  const {
+    setStep,
+    cityInput,
+    budgetInput,
+    daysInput,
+    activitiesInput,
+    setActivitiesInput,
+    setTravelPlan,
+  } = useApp();
+
   const [isGenerating, setIsGenerating] = useState(false);
 
   async function handleGenerateTravelPlan() {
     setIsGenerating(true);
     try {
+      const prompt = `Generate a ${daysInput}-day travel plan in ${cityInput} with a budget of ${budgetInput} euro`;
+      const promptSuffix = activitiesInput
+        ? `and considering my hobbies ${activitiesInput
+            .join(", ")
+            .toLowerCase()}`
+        : "";
       const response = await fetch(
         "https://6ypadb4sz6.execute-api.eu-central-1.amazonaws.com/default/queryOpenAI",
         {
           method: "POST",
-          // body: JSON.stringify({ prompt: "Generate a two day travel plan in Pristina with a budget of 1000 euro" }),
-          body: JSON.stringify({ prompt: "Say this is a test" }),
+          body: JSON.stringify({
+            prompt: `${prompt} ${promptSuffix}`,
+          }),
         }
       );
 
       const result = await response.json();
-      goTo(3);
-      console.log("Success:", result);
+      setTravelPlan(result.choices[0].text);
+      setStep(3);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -40,7 +58,11 @@ export default function Activities({ goTo }) {
       <Heading textAlign="center">Optional Activities</Heading>
 
       <Stack spacing={4}>
-        <CheckboxGroup colorScheme="purple">
+        <CheckboxGroup
+          colorScheme="purple"
+          value={activitiesInput}
+          onChange={setActivitiesInput}
+        >
           <HStack justifyContent="space-between" alignItems="start" spacing={6}>
             <VStack flex={1} spacing={4}>
               <CollapsableCheckbox
@@ -99,9 +121,7 @@ export default function Activities({ goTo }) {
           shadow="md"
           isLoading={isGenerating}
           isDisabled={isGenerating}
-          onClick={() => {
-            handleGenerateTravelPlan();
-          }}
+          onClick={handleGenerateTravelPlan}
           rightIcon={<Icon as={FaArrowRight} />}
         >
           Generate travel plan
@@ -115,9 +135,7 @@ export default function Activities({ goTo }) {
           shadow="md"
           isDisabled={isGenerating}
           leftIcon={<Icon as={FaArrowLeft} />}
-          onClick={() => {
-            goTo(1);
-          }}
+          onClick={() => setStep(1)}
         >
           Go to first step
         </Button>

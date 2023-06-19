@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Container, Flex, Progress } from "@chakra-ui/react";
 import Billboard from "./components/Billboard";
 import Home from "./components/Home";
 import Activities from "./components/Activities";
 import TravelPlan from "./components/TravelPlan";
+import { useApp } from "./utils/useApp";
 
 function App() {
-  const [screen, setScreen] = useState(1);
+  const { step } = useApp();
 
   return (
     <Flex flexDirection="row" justifyContent="space-between">
@@ -24,16 +25,10 @@ function App() {
           size="xs"
           colorScheme="purple"
           backgroundColor="purple.100"
-          value={1 + screen * 33}
+          value={1 + step * 33}
         />
         <Container my={20}>
-          {screen === 1 ? (
-            <Home goTo={setScreen} />
-          ) : screen === 2 ? (
-            <Activities goTo={setScreen} />
-          ) : (
-            <TravelPlan />
-          )}
+          {step === 1 ? <Home /> : step === 2 ? <Activities /> : <TravelPlan />}
         </Container>
       </Box>
     </Flex>

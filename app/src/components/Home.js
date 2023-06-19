@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Heading,
@@ -14,31 +14,20 @@ import Select from "./Select";
 import { FaArrowRight, FaCalendar, FaMoneyBillWave } from "react-icons/fa";
 import allCountries from "../utils/countries.min.json";
 import { flattenCities } from "../utils/flattenCities";
+import { useApp } from "../utils/useApp";
 
-export default function Home({ goTo }) {
-  const [cityInput, setCityInput] = useState("");
-  const [cityResults, setCityResults] = useState([]);
+export default function Home() {
+  const {
+    setStep,
+    cityInput,
+    setCityInput,
+    budgetInput,
+    setBudgetInput,
+    daysInput,
+    setDaysInput,
+  } = useApp();
 
   const { formattedCities } = flattenCities(allCountries);
-
-  function handleCityInputChange(event) {
-    const newCityInput = event.target.value;
-    setCityInput(newCityInput);
-
-    if (newCityInput.length >= 3) {
-      const results = formattedCities.filter((city) => {
-        return city.toLowerCase().startsWith(newCityInput.toLowerCase());
-      });
-      setCityResults(results);
-    } else {
-      setCityResults([]);
-    }
-  }
-
-  function handleCitySelect(city) {
-    setCityInput(city);
-    setCityResults([]);
-  }
 
   return (
     <Stack spacing={10}>
@@ -56,17 +45,23 @@ export default function Home({ goTo }) {
         <Select
           placeholder="Find destination"
           value={cityInput}
-          onChange={handleCityInputChange}
-          results={cityResults}
-          onSelect={handleCitySelect}
+          onChange={(event) => setCityInput(event.target.value)}
+          onSelect={setCityInput}
+          options={formattedCities}
         />
 
-        <NumberInput shadow="md" rounded="md" focusBorderColor="purple.500">
+        <NumberInput
+          shadow="md"
+          rounded="md"
+          focusBorderColor="purple.500"
+          value={budgetInput}
+          onChange={setBudgetInput}
+        >
           <InputGroup>
             <NumberInputField
               borderColor="transparent"
               _hover={{ borderColor: "none" }}
-              placeholder="Enter budget ($)"
+              placeholder="Enter budget (€)"
             />
             <InputRightElement>
               <Icon color="purple.200" as={FaMoneyBillWave} />
@@ -80,6 +75,8 @@ export default function Home({ goTo }) {
           focusBorderColor="purple.500"
           min={1}
           max={10}
+          value={daysInput}
+          onChange={setDaysInput}
         >
           <InputGroup>
             <NumberInputField
@@ -98,8 +95,9 @@ export default function Home({ goTo }) {
         colorScheme="purple"
         shadow="md"
         onClick={() => {
-          goTo(2);
+          setStep(2);
         }}
+        isDisabled={!cityInput || !budgetInput || !daysInput}
         rightIcon={<Icon as={FaArrowRight} />}
       >
         Go to second step
