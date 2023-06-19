@@ -45,6 +45,10 @@ export default function Activities() {
       );
 
       const result = await response.json();
+
+      console.log("Prompt:", `${prompt} ${promptSuffix}`);
+      console.log("Result:", result);
+
       setTravelPlan(result.choices[0].text);
       setStep(3);
     } catch (error) {
