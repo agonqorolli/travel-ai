@@ -26,14 +26,13 @@ function App() {
       <Box position="relative">
         <Progress
           position="absolute"
-          boxShadow={{ base: "dark-lg", sm: "none" }}
           top={0}
           left={0}
           right={0}
           zIndex={9}
           size="xs"
           colorScheme="purple"
-          backgroundColor="purple.100"
+          backgroundColor={{ base: "white", sm: "purple.100" }}
           value={1 + step * 33}
         />
 
