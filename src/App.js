@@ -26,6 +26,7 @@ function App() {
       <Box position="relative">
         <Progress
           position="absolute"
+          boxShadow={{ base: "dark-lg", sm: "none" }}
           top={0}
           left={0}
           right={0}
