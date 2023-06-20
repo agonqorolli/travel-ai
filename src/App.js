@@ -16,7 +16,7 @@ function App() {
     >
       <Box
         id="billboard-box"
-        height={{ base: "20vh", sm: "100vh" }}
+        height={{ base: "30dvh", sm: "100vh" }}
         width={{ base: "100vw", sm: "40vw" }}
         position="relative"
       >
@@ -37,7 +37,7 @@ function App() {
         />
 
         <Box
-          height={{ base: "80vh", sm: "100vh" }}
+          height={{ base: "70dvh", sm: "100vh" }}
           minWidth="60vw"
           overflowY="auto"
         >

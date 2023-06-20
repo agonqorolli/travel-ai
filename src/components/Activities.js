@@ -29,7 +29,7 @@ export default function Activities() {
     try {
       const prompt = `Generate a ${daysInput}-day travel plan in ${cityInput} with a budget of ${budgetInput} euro. Display exact price for each activity of the plan and total sum in the end.`;
       const promptSuffix = activitiesInput.length
-        ? `Please also consider my hobbies ${activitiesInput
+        ? `Please also consider my hobbies: ${activitiesInput
             .join(", ")
             .toLowerCase()}`
         : "";
