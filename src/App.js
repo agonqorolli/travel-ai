@@ -17,7 +17,8 @@ function App() {
       <Box
         id="billboard-box"
         height={{ base: "20vh", sm: "100vh" }}
-        minWidth="40vw"
+        width={{ base: "100vw", sm: "40vw" }}
+        position="relative"
       >
         <Billboard />
       </Box>
