@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "@chakra-ui/react";
+import { Image, Progress } from "@chakra-ui/react";
 
 const UNSPLASH_TRAVELLING_IMAGES = [
   "https://images.unsplash.com/photo-1527631746610-bca00a040d60",
@@ -13,26 +13,49 @@ const UNSPLASH_TRAVELLING_IMAGES = [
 
 export default function Billboard() {
   const [imageIndex, setImageIndex] = useState(0);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    const imageChangeTimeout = setTimeout(() => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(
-          Math.random() * UNSPLASH_TRAVELLING_IMAGES.length
-        );
-      } while (randomIndex === imageIndex);
+    let _counter = 0;
+    let _imageIndex = 0;
+    const i = setInterval(() => {
+      _counter++;
 
-      setImageIndex(randomIndex);
-    }, 10000);
+      if (_counter === 2500) {
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(
+            Math.random() * UNSPLASH_TRAVELLING_IMAGES.length
+          );
+        } while (randomIndex === _imageIndex);
+
+        _imageIndex = randomIndex;
+        _counter = 0;
+      }
+
+      setImageIndex(_imageIndex);
+      setCounter(_counter);
+    }, 1);
 
     return () => {
-      clearTimeout(imageChangeTimeout);
+      clearTimeout(i);
     };
-  }, [imageIndex]);
+  }, []);
 
   return (
     <>
+      <Progress
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        zIndex={9}
+        size="xs"
+        colorScheme="red"
+        backgroundColor="transparent"
+        value={counter}
+        max={2500}
+      />
       {UNSPLASH_TRAVELLING_IMAGES.map((img, i) => {
         return (
           <Image
