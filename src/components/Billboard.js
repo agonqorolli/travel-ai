@@ -68,7 +68,7 @@ export default function Billboard() {
             alt="Travelling billboard"
             opacity={imageIndex === i ? 1 : 0}
             transition="opacity 0.5s ease-in-out"
-            loading="lazy"
+            loading="eager"
           />
         );
       })}
