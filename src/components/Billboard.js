@@ -59,6 +59,7 @@ export default function Billboard() {
       {UNSPLASH_TRAVELLING_IMAGES.map((img, i) => {
         return (
           <Image
+            key={img}
             position="absolute"
             w="100%"
             h="100%"
@@ -66,7 +67,7 @@ export default function Billboard() {
             src={img}
             alt="Travelling billboard"
             opacity={imageIndex === i ? 1 : 0}
-            transition="opacity 1s ease-in-out"
+            transition="opacity 0.5s ease-in-out"
           />
         );
       })}
